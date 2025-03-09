@@ -28,7 +28,7 @@ public class NVersionMain implements NApplication {
     }
 
     public static void main(String[] args) {
-        new NVersionMain().runAndExit(args);
+        new NVersionMain().run(NAppRunOptions.ofExit(args));
     }
 
     private Set<VersionDescriptor> detectVersions(String filePath, NSession session) throws IOException {
