@@ -101,7 +101,7 @@ public class NVersionMain implements NApplication {
                 error = a.getBooleanValue().get();
             } else if (cmdLine.peek().get().isNonOption()) {
                 a = cmdLine.next().get();
-                jarFiles.add(a.asString().get());
+                jarFiles.add(a.asStringValue().get());
             } else {
                 session.configureLast(cmdLine);
             }
