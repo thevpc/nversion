@@ -33,6 +33,7 @@ import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
 import net.thevpc.nuts.*;
+import net.thevpc.nuts.elem.NElementWriter;
 import net.thevpc.nuts.elem.NElements;
 import net.thevpc.nuts.io.NIOException;
 import net.thevpc.nuts.io.NUncompressVisitor;
@@ -119,9 +120,7 @@ public class JarPathVersionResolver implements PathVersionResolver {
                                     if (d.getDescription() != null) {
                                         properties.setProperty("description", d.getDescription());
                                     }
-                                    properties.setProperty("locations", NElements.of().json()
-                                            .setValue(d.getLocations()).setNtf(false).format().filteredText()
-                                    );
+                                    properties.setProperty("locations", NElementWriter.ofJson().toString(d.getLocations()));
                                     properties.setProperty(NConstants.IdProperties.ARCH, String.join(";", d.getCondition().getArch()));
                                     properties.setProperty(NConstants.IdProperties.OS, String.join(";", d.getCondition().getOs()));
                                     properties.setProperty(NConstants.IdProperties.OS_DIST, String.join(";", d.getCondition().getOsDist()));
