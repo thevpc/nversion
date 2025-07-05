@@ -58,7 +58,7 @@ public class NVersionMain {
         throw new NExecutionException(NMsg.ofC("nversion: unsupported path: %s", filePath), NExecutionException.ERROR_2);
     }
 
-    @NApp.Main
+    @NApp.Runner
     public void run() {
         Set<String> unsupportedFileTypes = new HashSet<>();
         Set<String> jarFiles = new HashSet<>();
