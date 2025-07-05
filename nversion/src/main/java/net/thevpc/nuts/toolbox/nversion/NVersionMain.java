@@ -17,7 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-@NApp.Info
+@NApp.Definition
 public class NVersionMain {
 
     private final List<PathVersionResolver> resolvers = new ArrayList<>();
