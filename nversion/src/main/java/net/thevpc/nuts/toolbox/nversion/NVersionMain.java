@@ -17,7 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-@NApp.Definition
+@NAppDefinition
 public class NVersionMain {
 
     private final List<PathVersionResolver> resolvers = new ArrayList<>();
@@ -58,7 +58,7 @@ public class NVersionMain {
         throw new NExecutionException(NMsg.ofC("nversion: unsupported path: %s", filePath), NExecutionException.ERROR_2);
     }
 
-    @NApp.Runner
+    @NAppRunner
     public void run() {
         Set<String> unsupportedFileTypes = new HashSet<>();
         Set<String> jarFiles = new HashSet<>();
