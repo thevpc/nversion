@@ -59,7 +59,7 @@
     </licenses>
 
     <dependencies>
-        <dependency><groupId>net.thevpc.nuts</groupId><artifactId>nuts-lib</artifactId><version>0.8.6.0</version></dependency>
+        <dependency><groupId>net.thevpc.nuts</groupId><artifactId>nuts</artifactId><version>0.8.6</version></dependency>
         <dependency><groupId>org.whitesource</groupId><artifactId>pecoff4j</artifactId><version>0.0.2.1</version></dependency>
     </dependencies>
     <distributionManagement>
