@@ -32,7 +32,8 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
-import net.thevpc.nuts.*;
+import net.thevpc.nuts.artifact.*;
+import net.thevpc.nuts.core.NSession;
 
 /**
  *
