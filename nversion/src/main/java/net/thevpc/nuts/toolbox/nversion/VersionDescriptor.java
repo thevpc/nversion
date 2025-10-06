@@ -27,7 +27,7 @@ package net.thevpc.nuts.toolbox.nversion;
 
 import java.util.Objects;
 import java.util.Properties;
-import net.thevpc.nuts.NId;
+import net.thevpc.nuts.artifact.NId;
 
 /**
  *
