@@ -25,7 +25,7 @@
 */
 package net.thevpc.nuts.toolbox.nversion;
 
-import net.thevpc.nuts.NSession;
+import net.thevpc.nuts.core.NSession;
 
 import java.util.Set;
 
