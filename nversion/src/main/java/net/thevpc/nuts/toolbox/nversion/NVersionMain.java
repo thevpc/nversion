@@ -167,7 +167,7 @@ public class NVersionMain {
                         }
                     }
                 }
-                tt.setValue(pp).print(out);
+                tt.print(pp, out);
             } else {
                 Set<String> keys = sort ? new TreeSet<>(results.keySet()) : new LinkedHashSet<>(results.keySet());
                 for (String k : keys) {
@@ -188,7 +188,7 @@ public class NVersionMain {
                             out.println(NMsg.ofC("%s", text.of(descriptor.getId())));
                             NPropertiesFormat f = NPropertiesFormat.of()
                                     .setSorted(true);
-                            f.setValue(descriptor.getProperties()).print(out);
+                            f.print(descriptor.getProperties(), out);
                         } else {
                             out.println(NMsg.ofC("%s", text.of(descriptor.getId().getVersion())));
                         }
