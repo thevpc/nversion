@@ -7,7 +7,7 @@ import net.thevpc.nuts.cmdline.NArg;
 import net.thevpc.nuts.cmdline.NCmdLine;
 import net.thevpc.nuts.command.NExecutionException;
 import net.thevpc.nuts.core.NSession;
-import net.thevpc.nuts.text.NPropertiesFormat;
+import net.thevpc.nuts.text.NPropertiesWriter;
 import net.thevpc.nuts.io.NPath;
 import net.thevpc.nuts.io.NPrintStream;
 import net.thevpc.nuts.text.NTextStyle;
@@ -139,7 +139,7 @@ public class NVersionMain {
             NPrintStream err = session.out();
             NTexts text = NTexts.of();
             if (table) {
-                NPropertiesFormat tt = NPropertiesFormat.of().setSorted(sort);
+                NPropertiesWriter tt = NPropertiesWriter.of().setSorted(sort);
                 Properties pp = new Properties();
                 for (Map.Entry<String, Set<VersionDescriptor>> entry : results.entrySet()) {
                     VersionDescriptor o = entry.getValue().toArray(new VersionDescriptor[0])[0];
@@ -186,7 +186,7 @@ public class NVersionMain {
                             out.println(NMsg.ofC("%s", text.of(descriptor.getId())));
                         } else if (longFormat) {
                             out.println(NMsg.ofC("%s", text.of(descriptor.getId())));
-                            NPropertiesFormat f = NPropertiesFormat.of()
+                            NPropertiesWriter f = NPropertiesWriter.of()
                                     .setSorted(true);
                             f.print(descriptor.getProperties(), out);
                         } else {
