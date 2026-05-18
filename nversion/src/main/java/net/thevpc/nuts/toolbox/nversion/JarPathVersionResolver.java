@@ -53,7 +53,7 @@ public class JarPathVersionResolver implements PathVersionResolver {
             return null;
         }
         Set<VersionDescriptor> all = new HashSet<>();
-        try (InputStream is = (NPath.of(filePath).toAbsolute()).getInputStream()) {
+        try (InputStream is = (NPath.of(filePath).toAbsolute()).inputStream()) {
             NUncompress.of()
                     .from(is)
                     .visit(new NUncompressVisitor() {
@@ -108,10 +108,10 @@ public class JarPathVersionResolver implements PathVersionResolver {
                                     inputStream.close();
                                     Properties properties = new Properties();
                                     properties.setProperty("parents", d.getParents().stream().map(Object::toString).collect(Collectors.joining(",")));
-                                    properties.setProperty("name", d.getId().getArtifactId());
-                                    properties.setProperty("face", d.getId().getFace());
-                                    properties.setProperty("group", d.getId().getGroupId());
-                                    properties.setProperty("version", d.getId().getVersion().toString());
+                                    properties.setProperty("name", d.getId().artifactId());
+                                    properties.setProperty("face", d.getId().face());
+                                    properties.setProperty("group", d.getId().groupId());
+                                    properties.setProperty("version", d.getId().version().toString());
 //                            if (d.getExt() != null) {
 //                                properties.setProperty("ext", d.getExt());
 //                            }
@@ -146,9 +146,9 @@ public class JarPathVersionResolver implements PathVersionResolver {
                                     NDescriptor d = NDescriptorParser.of()
                                             .setDescriptorStyle(NDescriptorStyle.MAVEN)
                                             .parse(inputStream).get();
-                                    properties.put("groupId", d.getId().getGroupId());
-                                    properties.put("artifactId", d.getId().getArtifactId());
-                                    properties.put("version", d.getId().getVersion().toString());
+                                    properties.put("groupId", d.getId().groupId());
+                                    properties.put("artifactId", d.getId().artifactId());
+                                    properties.put("version", d.getId().version().toString());
                                     properties.put("name", d.getName());
                                     properties.setProperty("nuts.version-provider", "maven");
                                     if (d.getProperties() != null) {
@@ -157,9 +157,9 @@ public class JarPathVersionResolver implements PathVersionResolver {
                                         }
                                     }
                                     all.add(new VersionDescriptor(
-                                            NIdBuilder.of().setGroupId(d.getId().getGroupId())
-                                                    .setRepository(d.getId().getArtifactId())
-                                                    .setVersion(d.getId().getVersion())
+                                            NIdBuilder.of().setGroupId(d.getId().groupId())
+                                                    .setRepository(d.getId().artifactId())
+                                                    .setVersion(d.getId().version())
                                                     .build(),
                                             properties));
                                 } catch (Exception e) {

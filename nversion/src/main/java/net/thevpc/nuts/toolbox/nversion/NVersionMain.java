@@ -78,7 +78,7 @@ public class NVersionMain {
         boolean table = false;
         boolean error = false;
         NSession session = NSession.of();
-        NCmdLine cmdLine = NApp.of().getCmdLine();
+        NCmdLine cmdLine = NApp.of().cmdLine();
         NArg a;
         int processed = 0;
         while (cmdLine.hasNext()) {
@@ -144,7 +144,7 @@ public class NVersionMain {
                 for (Map.Entry<String, Set<VersionDescriptor>> entry : results.entrySet()) {
                     VersionDescriptor o = entry.getValue().toArray(new VersionDescriptor[0])[0];
                     if (nameFormat) {
-                        pp.setProperty(entry.getKey(), o.getId().getShortName());
+                        pp.setProperty(entry.getKey(), o.getId().shortName());
                     } else if (idFormat) {
                         pp.setProperty(entry.getKey(), o.getId().toString());
                     } else if (longFormat) {
@@ -181,7 +181,7 @@ public class NVersionMain {
                     Set<VersionDescriptor> v = results.get(k);
                     for (VersionDescriptor descriptor : v) {
                         if (nameFormat) {
-                            out.println(NMsg.ofC("%s", text.ofStyled(descriptor.getId().getShortName(), NTextStyle.primary4())));
+                            out.println(NMsg.ofC("%s", text.ofStyled(descriptor.getId().shortName(), NTextStyle.primary4())));
                         } else if (idFormat) {
                             out.println(NMsg.ofC("%s", text.of(descriptor.getId())));
                         } else if (longFormat) {
@@ -190,7 +190,7 @@ public class NVersionMain {
                                     .setSorted(true);
                             f.print(descriptor.getProperties(), out);
                         } else {
-                            out.println(NMsg.ofC("%s", text.of(descriptor.getId().getVersion())));
+                            out.println(NMsg.ofC("%s", text.of(descriptor.getId().version())));
                         }
                         if (!all) {
                             break;
