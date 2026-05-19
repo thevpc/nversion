@@ -97,7 +97,7 @@ public class JarPathVersionResolver implements PathVersionResolver {
                                         && !NBlankable.isBlank(Bundle_Name)
                                         && !NBlankable.isBlank(Bundle_Version)) {
                                     all.add(new VersionDescriptor(
-                                            NIdBuilder.of().setGroupId(Bundle_SymbolicName).setArtifactId(Bundle_Name).setVersion(Bundle_Version).build(),
+                                            NIdBuilder.of().groupId(Bundle_SymbolicName).artifactId(Bundle_Name).version(Bundle_Version).build(),
                                             properties
                                     ));
                                 }
@@ -107,34 +107,34 @@ public class JarPathVersionResolver implements PathVersionResolver {
                                     NDescriptor d = NDescriptorParser.of().parse(inputStream).get();
                                     inputStream.close();
                                     Properties properties = new Properties();
-                                    properties.setProperty("parents", d.getParents().stream().map(Object::toString).collect(Collectors.joining(",")));
-                                    properties.setProperty("name", d.getId().artifactId());
-                                    properties.setProperty("face", d.getId().face());
-                                    properties.setProperty("group", d.getId().groupId());
-                                    properties.setProperty("version", d.getId().version().toString());
+                                    properties.setProperty("parents", d.parents().stream().map(Object::toString).collect(Collectors.joining(",")));
+                                    properties.setProperty("name", d.id().artifactId());
+                                    properties.setProperty("face", d.id().face());
+                                    properties.setProperty("group", d.id().groupId());
+                                    properties.setProperty("version", d.id().version().toString());
 //                            if (d.getExt() != null) {
 //                                properties.setProperty("ext", d.getExt());
 //                            }
-                                    if (d.getPackaging() != null) {
-                                        properties.setProperty("packaging", d.getPackaging());
+                                    if (d.packaging() != null) {
+                                        properties.setProperty("packaging", d.packaging());
                                     }
-                                    if (d.getDescription() != null) {
-                                        properties.setProperty("description", d.getDescription());
+                                    if (d.description() != null) {
+                                        properties.setProperty("description", d.description());
                                     }
-                                    properties.setProperty("locations", NElementWriter.ofJson().formatPlain(d.getLocations()));
-                                    properties.setProperty(NConstants.IdProperties.ARCH, String.join(";", d.getCondition().getArch()));
-                                    properties.setProperty(NConstants.IdProperties.OS, String.join(";", d.getCondition().getOs()));
-                                    properties.setProperty(NConstants.IdProperties.OS_DIST, String.join(";", d.getCondition().getOsDist()));
-                                    properties.setProperty(NConstants.IdProperties.PLATFORM, String.join(";", d.getCondition().getPlatform()));
-                                    properties.setProperty(NConstants.IdProperties.DESKTOP, String.join(";", d.getCondition().getDesktopEnvironment()));
-                                    properties.setProperty(NConstants.IdProperties.PROFILE, String.join(";", d.getCondition().getProfiles()));
+                                    properties.setProperty("locations", NElementWriter.ofJson().formatPlain(d.locations()));
+                                    properties.setProperty(NConstants.IdProperties.ARCH, String.join(";", d.condition().arch()));
+                                    properties.setProperty(NConstants.IdProperties.OS, String.join(";", d.condition().os()));
+                                    properties.setProperty(NConstants.IdProperties.OS_DIST, String.join(";", d.condition().osDist()));
+                                    properties.setProperty(NConstants.IdProperties.PLATFORM, String.join(";", d.condition().platform()));
+                                    properties.setProperty(NConstants.IdProperties.DESKTOP, String.join(";", d.condition().desktopEnvironment()));
+                                    properties.setProperty(NConstants.IdProperties.PROFILE, String.join(";", d.condition().profiles()));
                                     properties.setProperty("nuts.version-provider", NConstants.Files.DESCRIPTOR_FILE_NAME);
-                                    if (d.getProperties() != null) {
-                                        for (NDescriptorProperty e : d.getProperties()) {
-                                            properties.put("property." + e.getName(), e.getValue());
+                                    if (d.properties() != null) {
+                                        for (NDescriptorProperty e : d.properties()) {
+                                            properties.put("property." + e.name(), e.value());
                                         }
                                     }
-                                    all.add(new VersionDescriptor(d.getId(), properties));
+                                    all.add(new VersionDescriptor(d.id(), properties));
                                 } catch (Exception e) {
                                     //e.printStackTrace();
                                 }
@@ -144,22 +144,22 @@ public class JarPathVersionResolver implements PathVersionResolver {
                                 Properties properties = new Properties();
                                 try {
                                     NDescriptor d = NDescriptorParser.of()
-                                            .setDescriptorStyle(NDescriptorStyle.MAVEN)
+                                            .descriptorStyle(NDescriptorStyle.MAVEN)
                                             .parse(inputStream).get();
-                                    properties.put("groupId", d.getId().groupId());
-                                    properties.put("artifactId", d.getId().artifactId());
-                                    properties.put("version", d.getId().version().toString());
-                                    properties.put("name", d.getName());
+                                    properties.put("groupId", d.id().groupId());
+                                    properties.put("artifactId", d.id().artifactId());
+                                    properties.put("version", d.id().version().toString());
+                                    properties.put("name", d.name());
                                     properties.setProperty("nuts.version-provider", "maven");
-                                    if (d.getProperties() != null) {
-                                        for (NDescriptorProperty e : d.getProperties()) {
-                                            properties.put("property." + e.getName(), e.getValue());
+                                    if (d.properties() != null) {
+                                        for (NDescriptorProperty e : d.properties()) {
+                                            properties.put("property." + e.name(), e.value());
                                         }
                                     }
                                     all.add(new VersionDescriptor(
-                                            NIdBuilder.of().setGroupId(d.getId().groupId())
-                                                    .setRepository(d.getId().artifactId())
-                                                    .setVersion(d.getId().version())
+                                            NIdBuilder.of().groupId(d.id().groupId())
+                                                    .repository(d.id().artifactId())
+                                                    .version(d.id().version())
                                                     .build(),
                                             properties));
                                 } catch (Exception e) {
@@ -180,7 +180,7 @@ public class JarPathVersionResolver implements PathVersionResolver {
                                     prop.setProperty("nuts.version-provider", "maven");
                                     if (version != null && version.trim().length() != 0) {
                                         all.add(new VersionDescriptor(
-                                                NIdBuilder.of(groupId, artifactId).setVersion(version)
+                                                NIdBuilder.of(groupId, artifactId).version(version)
                                                         .build(),
                                                 prop
                                         ));

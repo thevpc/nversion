@@ -47,22 +47,22 @@ public class MavenFolderPathVersionResolver implements PathVersionResolver {
             Set<VersionDescriptor> all = new HashSet<>();
             try (InputStream inputStream = Files.newInputStream(Paths.get(filePath).resolve("pom.xml"))) {
                 NDescriptor d = NDescriptorParser.of()
-                        .setDescriptorStyle(NDescriptorStyle.MAVEN)
+                        .descriptorStyle(NDescriptorStyle.MAVEN)
                         .parse(inputStream).get();
 
-                putNonNull(properties,"groupId", d.getId().groupId());
-                putNonNull(properties,"artifactId", d.getId().artifactId());
-                putNonNull(properties,"version", d.getId().version());
-                putNonNull(properties,"name", d.getName());
+                putNonNull(properties,"groupId", d.id().groupId());
+                putNonNull(properties,"artifactId", d.id().artifactId());
+                putNonNull(properties,"version", d.id().version());
+                putNonNull(properties,"name", d.name());
                 properties.setProperty("nuts.version-provider", "maven");
-                if (d.getProperties() != null) {
-                    for (NDescriptorProperty e : d.getProperties()) {
-                        putNonNull(properties,"property." + e.getName(), e.getValue());
+                if (d.properties() != null) {
+                    for (NDescriptorProperty e : d.properties()) {
+                        putNonNull(properties,"property." + e.name(), e.value());
                     }
                 }
                 all.add(new VersionDescriptor(
-                                NIdBuilder.of(d.getId().groupId(),d.getId().artifactId())
-                                .setVersion(d.getId().version())
+                                NIdBuilder.of(d.id().groupId(),d.id().artifactId())
+                                .version(d.id().version())
                                 .build(),
                         properties));
             } catch (Exception e) {
