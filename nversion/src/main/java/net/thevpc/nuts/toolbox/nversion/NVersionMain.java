@@ -139,7 +139,7 @@ public class NVersionMain {
             NPrintStream err = session.out();
             NTexts text = NTexts.of();
             if (table) {
-                NPropertiesWriter tt = NPropertiesWriter.of().setSorted(sort);
+                NPropertiesWriter tt = NPropertiesWriter.of().sorted(sort);
                 Properties pp = new Properties();
                 for (Map.Entry<String, Set<VersionDescriptor>> entry : results.entrySet()) {
                     VersionDescriptor o = entry.getValue().toArray(new VersionDescriptor[0])[0];
@@ -187,7 +187,7 @@ public class NVersionMain {
                         } else if (longFormat) {
                             out.println(NMsg.ofC("%s", text.of(descriptor.getId())));
                             NPropertiesWriter f = NPropertiesWriter.of()
-                                    .setSorted(true);
+                                    .sorted(true);
                             f.print(descriptor.getProperties(), out);
                         } else {
                             out.println(NMsg.ofC("%s", text.of(descriptor.getId().version())));
