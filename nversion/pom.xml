@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.thevpc.nuts.toolbox</groupId>
     <artifactId>nversion</artifactId>
-    <version>0.8.9.0</version>
+    <version>1.0.0.0</version>
     <packaging>jar</packaging>
     <name>Nuts Community Toolbox NVersion</name>
     <url>https://github.com/thevpc/nuts</url>
@@ -59,7 +59,7 @@
     </licenses>
 
     <dependencies>
-        <dependency><groupId>net.thevpc.nuts</groupId><artifactId>nuts</artifactId><version>0.8.9</version></dependency>
+        <dependency><groupId>net.thevpc.nuts</groupId><artifactId>nuts</artifactId><version>1.0.0</version></dependency>
         <dependency><groupId>org.whitesource</groupId><artifactId>pecoff4j</artifactId><version>0.0.2.1</version></dependency>
     </dependencies>
     <distributionManagement>
@@ -197,9 +197,7 @@
                         </configuration>
                     </plugin>
                     <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.9</version>
+                        <groupId>org.jacoco</groupId><artifactId>jacoco-maven-plugin</artifactId><version>0.8.9</version>
                         <executions>
                             <execution>
                                 <goals>
