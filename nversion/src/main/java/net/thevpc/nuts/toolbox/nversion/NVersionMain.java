@@ -7,12 +7,9 @@ import net.thevpc.nuts.cmdline.NArg;
 import net.thevpc.nuts.cmdline.NCmdLine;
 import net.thevpc.nuts.command.NExecutionException;
 import net.thevpc.nuts.core.NSession;
-import net.thevpc.nuts.text.NPropertiesWriter;
+import net.thevpc.nuts.text.*;
 import net.thevpc.nuts.io.NPath;
 import net.thevpc.nuts.io.NPrintStream;
-import net.thevpc.nuts.text.NTextStyle;
-import net.thevpc.nuts.text.NTexts;
-import net.thevpc.nuts.text.NMsg;
 
 import java.io.File;
 import java.io.IOException;
@@ -137,7 +134,6 @@ public class NVersionMain {
 
             NPrintStream out = session.out();
             NPrintStream err = session.out();
-            NTexts text = NTexts.of();
             if (table) {
                 NPropertiesWriter tt = NPropertiesWriter.of().sorted(sort);
                 Properties pp = new Properties();
@@ -157,12 +153,12 @@ public class NVersionMain {
                     for (String t : unsupportedFileTypes) {
                         File f = new File(NPath.of(t).toAbsolute().toString());
                         if (f.isFile()) {
-                            pp.setProperty(t, text.ofBuilder().append("<<ERROR>>", NTextStyle.error()).append(" unsupported file type").toString());
+                            pp.setProperty(t, NTextBuilder.of().append("<<ERROR>>", NTextStyle.error()).append(" unsupported file type").toString());
                         } else if (f.isDirectory()) {
-                            pp.setProperty(t, text.ofBuilder().append("<<ERROR>>", NTextStyle.error()).append(" ignored folder").toString()
+                            pp.setProperty(t, NTextBuilder.of().append("<<ERROR>>", NTextStyle.error()).append(" ignored folder").toString()
                             );
                         } else {
-                            pp.setProperty(t, text.ofBuilder().append("<<ERROR>>", NTextStyle.error()).append(" file not found").toString()
+                            pp.setProperty(t, NTextBuilder.of().append("<<ERROR>>", NTextStyle.error()).append(" file not found").toString()
                             );
                         }
                     }
@@ -173,24 +169,24 @@ public class NVersionMain {
                 for (String k : keys) {
                     if (results.size() > 1) {
                         if (longFormat || all) {
-                            out.println(NMsg.ofC("%s:", text.ofStyled(k, NTextStyle.primary3())));
+                            out.println(NMsg.ofC("%s:", NText.ofStyled(k, NTextStyle.primary3())));
                         } else {
-                            out.print(NMsg.ofC("%s: ", text.ofStyled(k, NTextStyle.primary3())));
+                            out.print(NMsg.ofC("%s: ", NText.ofStyled(k, NTextStyle.primary3())));
                         }
                     }
                     Set<VersionDescriptor> v = results.get(k);
                     for (VersionDescriptor descriptor : v) {
                         if (nameFormat) {
-                            out.println(NMsg.ofC("%s", text.ofStyled(descriptor.getId().shortName(), NTextStyle.primary4())));
+                            out.println(NMsg.ofC("%s", NText.ofStyled(descriptor.getId().shortName(), NTextStyle.primary4())));
                         } else if (idFormat) {
-                            out.println(NMsg.ofC("%s", text.of(descriptor.getId())));
+                            out.println(NMsg.ofC("%s", NText.of(descriptor.getId())));
                         } else if (longFormat) {
-                            out.println(NMsg.ofC("%s", text.of(descriptor.getId())));
+                            out.println(NMsg.ofC("%s", NText.of(descriptor.getId())));
                             NPropertiesWriter f = NPropertiesWriter.of()
                                     .sorted(true);
                             f.print(descriptor.getProperties(), out);
                         } else {
-                            out.println(NMsg.ofC("%s", text.of(descriptor.getId().version())));
+                            out.println(NMsg.ofC("%s", NText.of(descriptor.getId().version())));
                         }
                         if (!all) {
                             break;
