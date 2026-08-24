@@ -1,8 +1,8 @@
 package net.thevpc.nuts.toolbox.nversion;
 
+import net.thevpc.nuts.app.NApplication;
 import net.thevpc.nuts.app.NApp;
-import net.thevpc.nuts.app.NAppDefinition;
-import net.thevpc.nuts.app.NAppRunner;
+import net.thevpc.nuts.app.NAppRun;
 import net.thevpc.nuts.cmdline.NArg;
 import net.thevpc.nuts.cmdline.NCmdLine;
 import net.thevpc.nuts.command.NExecutionException;
@@ -18,7 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-@NAppDefinition
+@NApp
 public class NVersionMain {
 
     private final List<PathVersionResolver> resolvers = new ArrayList<>();
@@ -30,7 +30,7 @@ public class NVersionMain {
     }
 
     public static void main(String[] args) {
-        NApp.builder(args).run();
+        NApplication.builder(args).run();
     }
 
     private Set<VersionDescriptor> detectVersions(String filePath, NSession session) throws IOException {
@@ -59,7 +59,7 @@ public class NVersionMain {
         throw new NExecutionException(NMsg.ofC("nversion: unsupported path: %s", filePath), NExecutionException.ERROR_2);
     }
 
-    @NAppRunner
+    @NAppRun
     public void run() {
         Set<String> unsupportedFileTypes = new HashSet<>();
         Set<String> jarFiles = new HashSet<>();
@@ -75,7 +75,7 @@ public class NVersionMain {
         boolean table = false;
         boolean error = false;
         NSession session = NSession.of();
-        NCmdLine cmdLine = NApp.of().cmdLine();
+        NCmdLine cmdLine = NApplication.of().cmdLine();
         NArg a;
         int processed = 0;
         while (cmdLine.hasNext()) {
