@@ -123,13 +123,13 @@ public class NVersionMain {
                 }
             }
             if (processed == 0) {
-                throw new NExecutionException(NMsg.ofPlain("nversion: missing file"), NExecutionException.ERROR_2);
+                throw new NExecutionException(NMsg.ofP("nversion: missing file"), NExecutionException.ERROR_2);
             }
             if (table && all) {
-                throw new NExecutionException(NMsg.ofPlain("nversion: options conflict --table --all"), NExecutionException.ERROR_1);
+                throw new NExecutionException(NMsg.ofP("nversion: options conflict --table --all"), NExecutionException.ERROR_1);
             }
             if (table && longFormat) {
-                throw new NExecutionException(NMsg.ofPlain("nversion: options conflict --table --long"), NExecutionException.ERROR_1);
+                throw new NExecutionException(NMsg.ofP("nversion: options conflict --table --long"), NExecutionException.ERROR_1);
             }
 
             NPrintStream out = session.out();
